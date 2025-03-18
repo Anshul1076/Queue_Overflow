@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <div id="main">
+            <textarea name="prompt" id="prompt" placeholder="write your content!!"></textarea>
+            <button id="btn">Submit</button>
+        </div>
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+    </script>
+    <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+
+        // Fetch your API_KEY
+        const API_KEY = "AIzaSyAa7QqxXgr_7eS2T3StRy2t9necZ-xId8k";
+        async function fun(str) {
+            const genAI = new GoogleGenerativeAI(API_KEY);
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+            const prompt = str;
+
+            const result = await model.generateContent(prompt);
+            var str = result.response.text();
+            navigator.clipboard.writeText(str);
+            console.log(result.response.text());
+        }
+
+        const prompt = document.querySelector('#prompt');
+        const btn = document.querySelector('#btn');
+        btn.addEventListener('click',(e)=>{
+            e.preventDefault();
+            const value = prompt.value;
+            fun(value);
+        })
+        
+    </script>
+</body>
+</html>
