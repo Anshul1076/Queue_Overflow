@@ -19,7 +19,7 @@ export default function OverflowAI() {
     setMessages((prev) => [...prev.slice(0, -1), { role: "ai", text: response }]);
   };
 
-  const API_KEY = "AIzaSyAa7QqxXgr_7eS2T3StRy2t9necZ-xId8k";
+  const API_KEY = import.meta.env.VITE_API_KEY;
   async function messageGenerator(prompt) {
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
